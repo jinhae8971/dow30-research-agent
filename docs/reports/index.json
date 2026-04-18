@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "date": "2026-04-17",
+    "narrative_tagline": "Narrative synthesis unavailable.",
+    "top5": [
+      {
+        "ticker": "SHW",
+        "name": "Sherwin-Williams",
+        "sector": "Materials",
+        "change_pct_nd": 3.66
+      },
+      {
+        "ticker": "HD",
+        "name": "Home Depot",
+        "sector": "Consumer Discretionary",
+        "change_pct_nd": 3.63
+      },
+      {
+        "ticker": "MRK",
+        "name": "Merck",
+        "sector": "Health Care",
+        "change_pct_nd": 3.13
+      },
+      {
+        "ticker": "GS",
+        "name": "Goldman Sachs",
+        "sector": "Financials",
+        "change_pct_nd": 2.88
+      },
+      {
+        "ticker": "CAT",
+        "name": "Caterpillar",
+        "sector": "Industrials",
+        "change_pct_nd": 2.85
+      }
+    ]
+  }
+]
