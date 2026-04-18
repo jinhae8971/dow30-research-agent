@@ -1,4 +1,11 @@
-"""Dow Jones 30 market data client using yfinance + Wikipedia for constituents."""
+"""Dow Jones 30 market data client using yfinance + multi-source constituents.
+
+Sources (in priority order):
+  1. Hardcoded seed list (Dow 30 changes <1x/year — safe for 2026)
+  2. Wikipedia (fallback for sector metadata / post-rebalance validation)
+
+This removes the 403 Forbidden failure caused by Wikipedia's UA policy.
+"""
 from __future__ import annotations
 
 from datetime import datetime, timedelta
@@ -14,17 +21,75 @@ from .models import StockMarket
 
 log = get_logger(__name__)
 
+# ──────────────────────────────────────────────────────────────────────────────
+# Dow Jones Industrial Average — hardcoded constituents (as of 2026-04)
+# Official source: S&P Dow Jones Indices. Last rebalance: 2024-11 (NVDA, SHW in).
+# When DJIA rebalances, update this list and bump __CONSTITUENTS_REV.
+# ──────────────────────────────────────────────────────────────────────────────
+__CONSTITUENTS_REV = "2026-04-18"
+
+DOW30_SEED: list[dict] = [
+    {"ticker": "AAPL", "name": "Apple",                    "sector": "Information Technology"},
+    {"ticker": "AMGN", "name": "Amgen",                    "sector": "Health Care"},
+    {"ticker": "AMZN", "name": "Amazon",                   "sector": "Consumer Discretionary"},
+    {"ticker": "AXP",  "name": "American Express",         "sector": "Financials"},
+    {"ticker": "BA",   "name": "Boeing",                   "sector": "Industrials"},
+    {"ticker": "CAT",  "name": "Caterpillar",              "sector": "Industrials"},
+    {"ticker": "CRM",  "name": "Salesforce",               "sector": "Information Technology"},
+    {"ticker": "CSCO", "name": "Cisco Systems",            "sector": "Information Technology"},
+    {"ticker": "CVX",  "name": "Chevron",                  "sector": "Energy"},
+    {"ticker": "DIS",  "name": "Walt Disney",              "sector": "Communication Services"},
+    {"ticker": "GS",   "name": "Goldman Sachs",            "sector": "Financials"},
+    {"ticker": "HD",   "name": "Home Depot",               "sector": "Consumer Discretionary"},
+    {"ticker": "HON",  "name": "Honeywell",                "sector": "Industrials"},
+    {"ticker": "IBM",  "name": "IBM",                      "sector": "Information Technology"},
+    {"ticker": "JNJ",  "name": "Johnson & Johnson",        "sector": "Health Care"},
+    {"ticker": "JPM",  "name": "JPMorgan Chase",           "sector": "Financials"},
+    {"ticker": "KO",   "name": "Coca-Cola",                "sector": "Consumer Staples"},
+    {"ticker": "MCD",  "name": "McDonald's",               "sector": "Consumer Discretionary"},
+    {"ticker": "MMM",  "name": "3M",                       "sector": "Industrials"},
+    {"ticker": "MRK",  "name": "Merck",                    "sector": "Health Care"},
+    {"ticker": "MSFT", "name": "Microsoft",                "sector": "Information Technology"},
+    {"ticker": "NKE",  "name": "Nike",                     "sector": "Consumer Discretionary"},
+    {"ticker": "NVDA", "name": "Nvidia",                   "sector": "Information Technology"},
+    {"ticker": "PG",   "name": "Procter & Gamble",         "sector": "Consumer Staples"},
+    {"ticker": "SHW",  "name": "Sherwin-Williams",         "sector": "Materials"},
+    {"ticker": "TRV",  "name": "Travelers",                "sector": "Financials"},
+    {"ticker": "UNH",  "name": "UnitedHealth Group",       "sector": "Health Care"},
+    {"ticker": "V",    "name": "Visa",                     "sector": "Financials"},
+    {"ticker": "VZ",   "name": "Verizon",                  "sector": "Communication Services"},
+    {"ticker": "WMT",  "name": "Walmart",                  "sector": "Consumer Staples"},
+]
+
 DJIA_WIKI_URL = "https://en.wikipedia.org/wiki/Dow_Jones_Industrial_Average"
-_WIKI_HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"}
+# Wikimedia User-Agent policy: identify your tool + contact.
+# https://meta.wikimedia.org/wiki/User-Agent_policy
+_WIKI_HEADERS = {
+    "User-Agent": (
+        "dow30-research-agent/1.0 "
+        "(+https://github.com/jinhae8971/dow30-research-agent; "
+        "contact: github issues)"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+
+def _seed_dataframe() -> pd.DataFrame:
+    """Return the hardcoded DJIA seed list as a normalized DataFrame."""
+    df = pd.DataFrame(DOW30_SEED)
+    df["ticker"] = df["ticker"].astype(str).str.replace(".", "-", regex=False).str.strip()
+    log.info("using hardcoded DJIA constituents rev=%s (%d tickers)",
+             __CONSTITUENTS_REV, len(df))
+    return df[["ticker", "name", "sector"]]
 
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=10))
-def _fetch_djia_constituents() -> pd.DataFrame:
-    """Scrape current Dow 30 list from Wikipedia."""
+def _fetch_djia_wikipedia() -> pd.DataFrame:
+    """Secondary source: scrape current Dow 30 list from Wikipedia."""
     resp = httpx.get(DJIA_WIKI_URL, headers=_WIKI_HEADERS, follow_redirects=True, timeout=20.0)
     resp.raise_for_status()
     tables = pd.read_html(StringIO(resp.text))
-    # Find the table with ticker/symbol column
     df = None
     for t in tables:
         cols_lower = [str(c).lower() for c in t.columns]
@@ -57,6 +122,33 @@ def _fetch_djia_constituents() -> pd.DataFrame:
     return df[["ticker", "name", "sector"]]
 
 
+def _fetch_djia_constituents() -> pd.DataFrame:
+    """Primary: hardcoded seed. Wikipedia only for validation/cross-check.
+
+    Strategy: always return the hardcoded list (deterministic, network-free).
+    Log a warning if Wikipedia disagrees on ticker set (but don't fail).
+    """
+    seed = _seed_dataframe()
+
+    # Best-effort Wikipedia cross-check (never fatal)
+    try:
+        wiki = _fetch_djia_wikipedia()
+        seed_set = set(seed["ticker"])
+        wiki_set = set(wiki["ticker"])
+        if seed_set != wiki_set:
+            missing = wiki_set - seed_set
+            extra = seed_set - wiki_set
+            log.warning(
+                "DJIA seed/Wikipedia drift: missing=%s extra=%s — "
+                "consider updating DOW30_SEED (current rev=%s)",
+                missing or "{}", extra or "{}", __CONSTITUENTS_REV,
+            )
+    except Exception as exc:  # noqa: BLE001
+        log.info("Wikipedia cross-check skipped: %s", exc)
+
+    return seed
+
+
 def _recent_trading_dates(n: int) -> list[str]:
     """Return the last N trading dates by checking DIA (Dow ETF) data."""
     end = datetime.now()
@@ -75,14 +167,18 @@ def fetch_all_markets() -> tuple[list[StockMarket], str]:
     tickers = constituents["ticker"].tolist()
     meta_by_ticker = {row["ticker"]: row for _, row in constituents.iterrows()}
 
-    log.info("downloading market data for %d tickers...", len(tickers))
+    log.info("downloading market data for %d Dow 30 tickers...", len(tickers))
     data = yf.download(
-        tickers, period="5d", progress=False,
-        auto_adjust=True, group_by="ticker", threads=True,
+        tickers,
+        period="5d",
+        progress=False,
+        auto_adjust=True,
+        group_by="ticker",
+        threads=True,
     )
 
     if data.empty:
-        raise RuntimeError("yfinance returned empty data")
+        raise RuntimeError("yfinance returned empty data for Dow 30")
 
     trading_date = data.index[-1].strftime("%Y-%m-%d")
     prev_date = data.index[-2].strftime("%Y-%m-%d") if len(data.index) >= 2 else None
@@ -92,6 +188,7 @@ def fetch_all_markets() -> tuple[list[StockMarket], str]:
         meta = meta_by_ticker.get(ticker, {})
         try:
             ticker_data = data if len(tickers) == 1 else data[ticker]
+
             latest = ticker_data.iloc[-1]
             close = float(latest["Close"])
             if close <= 0 or pd.isna(close):
@@ -125,11 +222,13 @@ def fetch_all_markets() -> tuple[list[StockMarket], str]:
             continue
 
     _enrich_market_caps(stocks)
+
     log.info("fetched %d Dow 30 stocks for %s", len(stocks), trading_date)
     return stocks, trading_date
 
 
 def _enrich_market_caps(stocks: list[StockMarket]) -> None:
+    """Best-effort market cap enrichment using yfinance fast_info."""
     ticker_symbols = [s.ticker for s in stocks]
     try:
         tickers_obj = yf.Tickers(" ".join(ticker_symbols))
@@ -147,7 +246,8 @@ def _enrich_market_caps(stocks: list[StockMarket]) -> None:
 
 
 def get_recent_trading_date() -> str:
-    return _recent_trading_dates(1)[-1]
+    dates = _recent_trading_dates(1)
+    return dates[-1]
 
 
 def get_past_trading_date(days_back: int) -> str:
