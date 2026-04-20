@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-04-20",
+    "narrative_tagline": "다우지수는 현재 금리 인하 기대감을 핵심 동력으로 삼아 기술주 밸류에이션 재평가와 금융 섹터 순환매가 동시에 진행되는 '금리 민감형 리스크온' 장세를 연출하고 있다.",
+    "top5": [
+      {
+        "ticker": "CRM",
+        "name": "Salesforce",
+        "sector": "Information Technology",
+        "change_pct_nd": 2.27
+      },
+      {
+        "ticker": "JPM",
+        "name": "JPMorgan Chase",
+        "sector": "Financials",
+        "change_pct_nd": 2.16
+      },
+      {
+        "ticker": "GS",
+        "name": "Goldman Sachs",
+        "sector": "Financials",
+        "change_pct_nd": 1.71
+      },
+      {
+        "ticker": "CSCO",
+        "name": "Cisco Systems",
+        "sector": "Information Technology",
+        "change_pct_nd": 1.69
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple",
+        "sector": "Information Technology",
+        "change_pct_nd": 1.04
+      }
+    ]
+  },
+  {
     "date": "2026-04-17",
     "narrative_tagline": "다우존스는 금리 인하 기대감을 핵심 동력으로 삼아 금융·산업재·소비재·소재 섹터에 걸친 광범위한 경기민감 순환매를 보상하고 있으며, 고가 주도주(GS, CAT)의 지수 가중 효과가 상승폭을 증폭시키고 있다.",
     "top5": [
