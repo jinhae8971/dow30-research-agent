@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-04-21",
+    "narrative_tagline": "다우지수는 금리 인하 기대에 따른 기술주 밸류에이션 재평가와 헬스케어 저가 매수세가 결합되며, 고가 우량주 중심의 선별적 리스크온 장세를 연출하고 있다.",
+    "top5": [
+      {
+        "ticker": "UNH",
+        "name": "UnitedHealth Group",
+        "sector": "Health Care",
+        "change_pct_nd": 6.96
+      },
+      {
+        "ticker": "CSCO",
+        "name": "Cisco Systems",
+        "sector": "Information Technology",
+        "change_pct_nd": 2.27
+      },
+      {
+        "ticker": "CVX",
+        "name": "Chevron",
+        "sector": "Energy",
+        "change_pct_nd": 1.49
+      },
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft",
+        "sector": "Information Technology",
+        "change_pct_nd": 1.46
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart",
+        "sector": "Consumer Staples",
+        "change_pct_nd": 1.31
+      }
+    ]
+  },
+  {
     "date": "2026-04-20",
     "narrative_tagline": "다우지수는 현재 금리 인하 기대감을 핵심 동력으로 삼아 기술주 밸류에이션 재평가와 금융 섹터 순환매가 동시에 진행되는 '금리 민감형 리스크온' 장세를 연출하고 있다.",
     "top5": [
