@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-04-22",
+    "narrative_tagline": "다우지수는 금리 인하 기대감을 핵심 동력으로 삼아 기술주 밸류에이션 재평가와 헬스케어 저가 매수세가 동시에 작동하는 복합 랠리 국면에 있으며, UNH의 고가주 반등이 지수 상방 기여를 극대화하고 있다.",
+    "top5": [
+      {
+        "ticker": "UNH",
+        "name": "UnitedHealth Group",
+        "sector": "Health Care",
+        "change_pct_nd": 8.9
+      },
+      {
+        "ticker": "CRM",
+        "name": "Salesforce",
+        "sector": "Information Technology",
+        "change_pct_nd": 4.21
+      },
+      {
+        "ticker": "CSCO",
+        "name": "Cisco Systems",
+        "sector": "Information Technology",
+        "change_pct_nd": 4.12
+      },
+      {
+        "ticker": "BA",
+        "name": "Boeing",
+        "sector": "Industrials",
+        "change_pct_nd": 3.54
+      },
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft",
+        "sector": "Information Technology",
+        "change_pct_nd": 2.4
+      }
+    ]
+  },
+  {
     "date": "2026-04-21",
     "narrative_tagline": "다우지수는 금리 인하 기대에 따른 기술주 밸류에이션 재평가와 헬스케어 저가 매수세가 결합되며, 고가 우량주 중심의 선별적 리스크온 장세를 연출하고 있다.",
     "top5": [

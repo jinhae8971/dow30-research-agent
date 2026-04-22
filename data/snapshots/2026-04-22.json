@@ -1,0 +1,216 @@
+{
+  "date": "2026-04-22",
+  "fetched_at": "2026-04-22T22:51:06.717730Z",
+  "stocks": [
+    {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "close": 273.1700134277344,
+      "market_cap": 4015032642779.846,
+      "trading_value": 11672441035.041504
+    },
+    {
+      "ticker": "AMGN",
+      "name": "Amgen",
+      "close": 345.9200134277344,
+      "market_cap": 186474297374.45755,
+      "trading_value": 738031418.088501
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "close": 255.36000061035156,
+      "market_cap": 2746205745956.514,
+      "trading_value": 9172020501.922607
+    },
+    {
+      "ticker": "AXP",
+      "name": "American Express",
+      "close": 332.8999938964844,
+      "market_cap": 228573798073.7407,
+      "trading_value": 1438594366.5242615
+    },
+    {
+      "ticker": "BA",
+      "name": "Boeing",
+      "close": 231.27999877929688,
+      "market_cap": 181750031739.9176,
+      "trading_value": 3636512327.1263733
+    },
+    {
+      "ticker": "CAT",
+      "name": "Caterpillar",
+      "close": 808.8699951171875,
+      "market_cap": 378534654340.3334,
+      "trading_value": 1070905047.7753906
+    },
+    {
+      "ticker": "CRM",
+      "name": "Salesforce",
+      "close": 189.8000030517578,
+      "market_cap": 175185402816.77246,
+      "trading_value": 2030584822.6493835
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Cisco Systems",
+      "close": 89.80000305175781,
+      "market_cap": 354808303815.1837,
+      "trading_value": 1515751133.9111938
+    },
+    {
+      "ticker": "CVX",
+      "name": "Chevron",
+      "close": 186.32000732421875,
+      "market_cap": 371130599191.42255,
+      "trading_value": 1574966561.9917603
+    },
+    {
+      "ticker": "DIS",
+      "name": "Walt Disney",
+      "close": 104.81999969482422,
+      "market_cap": 185886419243.34525,
+      "trading_value": 539794697.0284271
+    },
+    {
+      "ticker": "GS",
+      "name": "Goldman Sachs",
+      "close": 934.8400268554688,
+      "market_cap": 277416509571.9188,
+      "trading_value": 1290817760.6817627
+    },
+    {
+      "ticker": "HD",
+      "name": "Home Depot",
+      "close": 339.5,
+      "market_cap": 338151389891.0,
+      "trading_value": 748651820.0
+    },
+    {
+      "ticker": "HON",
+      "name": "Honeywell",
+      "close": 219.97000122070312,
+      "market_cap": 139384677359.93234,
+      "trading_value": 976467952.5388184
+    },
+    {
+      "ticker": "IBM",
+      "name": "IBM",
+      "close": 251.86000061035156,
+      "market_cap": 236347709446.67944,
+      "trading_value": 2955241881.501663
+    },
+    {
+      "ticker": "JNJ",
+      "name": "Johnson & Johnson",
+      "close": 226.10000610351562,
+      "market_cap": 544878164138.4558,
+      "trading_value": 1500675030.3103638
+    },
+    {
+      "ticker": "JPM",
+      "name": "JPMorgan Chase",
+      "close": 313.0199890136719,
+      "market_cap": 844225044392.0173,
+      "trading_value": 1734828147.6712646
+    },
+    {
+      "ticker": "KO",
+      "name": "Coca-Cola",
+      "close": 74.62999725341797,
+      "market_cap": 321218917388.801,
+      "trading_value": 520262875.75294495
+    },
+    {
+      "ticker": "MCD",
+      "name": "McDonald's",
+      "close": 300.07000732421875,
+      "market_cap": 213298052440.42706,
+      "trading_value": 586746389.871521
+    },
+    {
+      "ticker": "MMM",
+      "name": "3M",
+      "close": 145.77999877929688,
+      "market_cap": 76154914336.92935,
+      "trading_value": 511627297.0158386
+    },
+    {
+      "ticker": "MRK",
+      "name": "Merck",
+      "close": 112.88999938964844,
+      "market_cap": 279108331822.5317,
+      "trading_value": 898765714.9507294
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "close": 432.9200134277344,
+      "market_cap": 3217625034635.5127,
+      "trading_value": 11785877651.878601
+    },
+    {
+      "ticker": "NKE",
+      "name": "Nike",
+      "close": 45.68000030517578,
+      "market_cap": 67646920119.37086,
+      "trading_value": 742674763.6816101
+    },
+    {
+      "ticker": "NVDA",
+      "name": "Nvidia",
+      "close": 202.5,
+      "market_cap": 4921762500000.0,
+      "trading_value": 21550350712.5
+    },
+    {
+      "ticker": "PG",
+      "name": "Procter & Gamble",
+      "close": 142.85000610351562,
+      "market_cap": 333802401736.9397,
+      "trading_value": 940500012.8345032
+    },
+    {
+      "ticker": "SHW",
+      "name": "Sherwin-Williams",
+      "close": 335.1499938964844,
+      "market_cap": 83041711982.90283,
+      "trading_value": 324576681.8890381
+    },
+    {
+      "ticker": "TRV",
+      "name": "Travelers",
+      "close": 301.67999267578125,
+      "market_cap": 64150649426.78375,
+      "trading_value": 459176859.73205566
+    },
+    {
+      "ticker": "UNH",
+      "name": "UnitedHealth Group",
+      "close": 353.5199890136719,
+      "market_cap": 320881552631.2554,
+      "trading_value": 3766755129.420685
+    },
+    {
+      "ticker": "V",
+      "name": "Visa",
+      "close": 311.2900085449219,
+      "market_cap": 600179463870.2378,
+      "trading_value": 1763332137.2435303
+    },
+    {
+      "ticker": "VZ",
+      "name": "Verizon",
+      "close": 45.97999954223633,
+      "market_cap": 193929116113.9374,
+      "trading_value": 1016850080.8365326
+    },
+    {
+      "ticker": "WMT",
+      "name": "Walmart",
+      "close": 129.97999572753906,
+      "market_cap": 1036252843018.2018,
+      "trading_value": 2288020057.5324554
+    }
+  ]
+}
