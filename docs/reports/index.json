@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-04-23",
+    "narrative_tagline": "다우지수는 금리 인하 기대감을 핵심 동력으로 삼아 과매도 헬스케어(UNH 연속 급등), 산업재(CAT·BA), 방어 소비재(WMT), 기술·성장주(AMZN) 전반에 걸친 광범위한 저가 매수 및 섹터 순환매를 보상하고 있다.",
+    "top5": [
+      {
+        "ticker": "UNH",
+        "name": "UnitedHealth Group",
+        "sector": "Health Care",
+        "change_pct_nd": 9.61
+      },
+      {
+        "ticker": "CAT",
+        "name": "Caterpillar",
+        "sector": "Industrials",
+        "change_pct_nd": 4.61
+      },
+      {
+        "ticker": "BA",
+        "name": "Boeing",
+        "sector": "Industrials",
+        "change_pct_nd": 4.03
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart",
+        "sector": "Consumer Staples",
+        "change_pct_nd": 3.21
+      },
+      {
+        "ticker": "AMZN",
+        "name": "Amazon",
+        "sector": "Consumer Discretionary",
+        "change_pct_nd": 2.74
+      }
+    ]
+  },
+  {
     "date": "2026-04-22",
     "narrative_tagline": "다우지수는 금리 인하 기대감을 핵심 동력으로 삼아 기술주 밸류에이션 재평가와 헬스케어 저가 매수세가 동시에 작동하는 복합 랠리 국면에 있으며, UNH의 고가주 반등이 지수 상방 기여를 극대화하고 있다.",
     "top5": [
