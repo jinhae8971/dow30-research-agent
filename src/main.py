@@ -1,4 +1,12 @@
 """Daily pipeline entry point."""
+# === anthropic_usage_reporter (auto-injected) ===
+try:
+    from anthropic_usage_reporter import patch_anthropic_client
+    patch_anthropic_client(workflow="dow30-research")
+except Exception:
+    pass
+# === end auto-injection ===
+
 from __future__ import annotations
 
 import argparse
